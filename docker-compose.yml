@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb+srv://s236349_db_user:<db_password>@cluster0.ppkuoop.mongodb.net/?appName=Cluster0
+
+  frontend:
+    build: ./client
+    ports:
+      - "5173:5173"
