@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -5,6 +7,11 @@ const Student = require('./Student');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+if (!process.env.MONGO_URI) {
+  console.error('Lỗi: MONGO_URI chưa được thiết lập trong file .env');
+  process.exit(1);
+}
 
 app.use(cors());
 app.use(express.json());
