@@ -76,7 +76,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>Quản lý Sinh viên MERN Stack</h2>
+      <h2>Quản lý Sinh viên MERN Stack - NguyenDinh </h2>
       
       {/* Form thêm/sửa sinh viên */}
       <form onSubmit={handleSubmit} style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>

@@ -7,14 +7,14 @@ services:
     volumes:
       - mongo-data:/data/db
     healthcheck:
-      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok' || mongo --quiet --eval 'db.runCommand({ ping: 1 }).ok'"]
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"]
       interval: 5s
       timeout: 10s
       retries: 10
       start_period: 20s
 
   backend:
-    build: ./server
+    image: s236349/mern-backend:1.0
     depends_on:
       mongo:
         condition: service_healthy
@@ -26,6 +26,16 @@ services:
     env_file:
       - ./server/.env
     restart: on-failure
+
+  # Thêm phần Frontend vào đây:
+  frontend:
+    image: s236349/mern-frontend:1.0
+    container_name: mern-frontend
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
 
 volumes:
   mongo-data:

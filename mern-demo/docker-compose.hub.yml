@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mern-demo-mongo-1
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    image: s236349/mern-backend:1.0
+    container_name: mern-demo-backend-1
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/mern-database
+    depends_on:
+      - mongo
+
+  frontend:
+    image: s236349/mern-frontend:2.0
+    container_name: mern-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
