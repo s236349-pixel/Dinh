@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
-const API_BASE = 'https://mern-backend-s236349-v1.onrender.com';
-
 function App() {
   const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState('');
@@ -41,13 +39,13 @@ function App() {
     return data;
   };
 
-  // 1. Lấy danh sách sinh viên
+  // 1. Lấy danh sách sinh viên (Dùng đường dẫn tương đối /api/students)
   const fetchStudents = useCallback(async () => {
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE}/api/students`);
+      const response = await fetch('/api/students');
       const data = await readResponse(response);
 
       if (!Array.isArray(data)) {
@@ -95,8 +93,8 @@ function App() {
     try {
       const isEditing = Boolean(editingStudentId);
       const url = isEditing
-        ? `${API_BASE}/api/students/${editingStudentId}`
-        : `${API_BASE}/api/students`;
+        ? `/api/students/${editingStudentId}`
+        : '/api/students';
 
       const response = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',
@@ -147,7 +145,7 @@ function App() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`${API_BASE}/api/students/${id}`, {
+      const response = await fetch(`/api/students/${id}`, {
         method: 'DELETE',
       });
 
@@ -163,7 +161,7 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Quản lý Sinh viên MERN Stack</h1>
+      <h1>Quản lý Sinh viên MERN Stack - v2.0</h1>
 
       <form className="form" onSubmit={handleSubmit}>
         <input

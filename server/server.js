@@ -184,7 +184,14 @@ app.delete('/api/students/:id', async (req, res) => {
     });
   }
 });
-
+// API kiểm tra sức khỏe hệ thống (Health Check) phục vụ Rolling Update
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'UP',
+    timestamp: new Date(),
+    uptime: process.uptime()
+  });
+});
 // Kết nối MongoDB rồi khởi chạy server
 async function startServer() {
   try {
